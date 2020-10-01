@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: './web'
+      args:
+        uid: ${UID}
+    container_name: app
+    environment:
+      - APACHE_RUN_USER=#${UID}
+      - APACHE_RUN_GROUP=#${UID}
+    volumes:
+      - ./web/project:/var/www/html
+    ports:
+      - ${PORT}:80
+    networks:
+      - net-backend
+networks:
+  net-backend:
